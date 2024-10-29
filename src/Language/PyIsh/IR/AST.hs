@@ -107,4 +107,5 @@ showExpr = \case
 
 data Statement a
     = SDefine a Identifier [Identifier] [Statement a]
+    | SExpr a (Expr a)
     deriving (Show, Read, Eq, Ord)
