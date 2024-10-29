@@ -25,7 +25,14 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Language.PyIsh
+      Language.PyIsh.Error
+      Language.PyIsh.IR
+      Language.PyIsh.IR.AST
+      Language.PyIsh.Parser
+      Language.PyIsh.Targets.Interpreter
+      Language.PyIsh.Targets.X86_64
+      Language.PyIsh.Utils
   other-modules:
       Paths_pyish_hs
   autogen-modules:
@@ -38,7 +45,9 @@ library
     , containers
     , megaparsec
     , mtl
+    , optparse-applicative
     , parser-combinators
+    , text
   default-language: Haskell2010
 
 executable pyish-hs-exe
@@ -55,8 +64,10 @@ executable pyish-hs-exe
     , containers
     , megaparsec
     , mtl
+    , optparse-applicative
     , parser-combinators
     , pyish-hs
+    , text
   default-language: Haskell2010
 
 test-suite pyish-hs-test
@@ -74,6 +85,8 @@ test-suite pyish-hs-test
     , containers
     , megaparsec
     , mtl
+    , optparse-applicative
     , parser-combinators
     , pyish-hs
+    , text
   default-language: Haskell2010

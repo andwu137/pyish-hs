@@ -25,6 +25,8 @@ dependencies:
 - parser-combinators
 - containers
 - mtl
+- text
+- optparse-applicative
 
 ghc-options:
 - -Wall
