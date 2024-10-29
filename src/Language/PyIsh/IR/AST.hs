@@ -106,5 +106,5 @@ showExpr = \case
         undefined
 
 data Statement a
-    = Define a Identifier [Identifier] (Expr a)
+    = SDefine a Identifier [Identifier] [Statement a]
     deriving (Show, Read, Eq, Ord)
