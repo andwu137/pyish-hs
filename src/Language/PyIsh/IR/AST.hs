@@ -79,6 +79,7 @@ data Expr a
     = EAtom a Atom
     | EPrimUnaryOp a PrimUnaryOp (Expr a)
     | EPrimBinOp a PrimBinOp (Expr a) (Expr a)
+    | EApply a Identifier [Expr a]
     | ETuple a (Vector.Vector (Expr a))
     | EList a (Vector.Vector (Expr a))
     | EDict a (Map.Map (Expr a) (Expr a))
@@ -87,13 +88,22 @@ data Expr a
 
 showExpr :: Expr a -> Text.Text
 showExpr = \case
-    EAtom _ a -> showAtom a
-    EPrimUnaryOp _ op e -> Text.concat ["(", showPrimUnaryOp op, showExpr e, ")"]
-    EPrimBinOp _ op e1 e2 -> Text.concat ["(", showExpr e1, showPrimBinOp op, showExpr e2, ")"]
-    ETuple _ xs -> undefined
-    EList _ xs -> undefined
-    EDict _ xs -> undefined
-    ESet _ xs -> undefined
+    EAtom _ a ->
+        showAtom a
+    EPrimUnaryOp _ op e ->
+        Text.concat ["(", showPrimUnaryOp op, showExpr e, ")"]
+    EPrimBinOp _ op e1 e2 ->
+        Text.concat ["(", showExpr e1, showPrimBinOp op, showExpr e2, ")"]
+    EApply _ f xs ->
+        f <> "(" <> Text.intercalate ", " (showExpr <$> xs) <> ")"
+    ETuple _ xs ->
+        undefined
+    EList _ xs ->
+        undefined
+    EDict _ xs ->
+        undefined
+    ESet _ xs ->
+        undefined
 
 data Statement a
     = Define a Identifier [Identifier] (Expr a)
