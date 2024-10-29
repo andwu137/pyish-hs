@@ -39,6 +39,8 @@ library
       Paths_pyish_hs
   hs-source-dirs:
       src
+  default-extensions:
+      TupleSections , OverloadedStrings , DeriveFunctor , GeneralisedNewtypeDeriving , RecordWildCards , NamedFieldPuns , LambdaCase , BangPatterns
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
@@ -48,6 +50,7 @@ library
     , optparse-applicative
     , parser-combinators
     , text
+    , vector
   default-language: Haskell2010
 
 executable pyish-hs-exe
@@ -68,6 +71,7 @@ executable pyish-hs-exe
     , parser-combinators
     , pyish-hs
     , text
+    , vector
   default-language: Haskell2010
 
 test-suite pyish-hs-test
@@ -89,4 +93,5 @@ test-suite pyish-hs-test
     , parser-combinators
     , pyish-hs
     , text
+    , vector
   default-language: Haskell2010

@@ -27,6 +27,7 @@ dependencies:
 - mtl
 - text
 - optparse-applicative
+- vector
 
 ghc-options:
 - -Wall
@@ -41,6 +42,15 @@ ghc-options:
 
 library:
   source-dirs: src
+  default-extensions:
+    TupleSections
+    , OverloadedStrings
+    , DeriveFunctor
+    , GeneralisedNewtypeDeriving
+    , RecordWildCards
+    , NamedFieldPuns
+    , LambdaCase
+    , BangPatterns
 
 executables:
   pyish-hs-exe:
