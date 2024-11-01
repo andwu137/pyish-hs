@@ -17,6 +17,7 @@ import qualified Data.Map as Map
 import qualified Data.Set as Set
 import qualified Data.Text as Text
 import qualified Data.Vector as Vector
+import Language.PyIsh.Utils
 
 type Identifier = Text.Text
 
@@ -99,15 +100,23 @@ showExpr = \case
     EPrimBinOp _ op e1 e2 ->
         Text.concat ["(", showExpr e1, showPrimBinOp op, showExpr e2, ")"]
     EApply _ f xs ->
-        f <> "(" <> Text.intercalate ", " (showExpr <$> xs) <> ")"
+        f <> "(" <> innerCol showExpr xs <> ")"
     ETuple _ xs ->
-        undefined
+        let inner = innerCol showExpr $ Vector.toList xs
+         in "(" <> inner <> ")"
     EList _ xs ->
-        undefined
+        let inner = innerCol showExpr $ Vector.toList xs
+         in "[" <> inner <> "]"
     EDict _ xs ->
-        undefined
+        let into (k, v) = k <> ": " <> v
+            inner = innerCol (into . both showExpr) $ Map.toList xs
+         in "(" <> inner <> ")"
     ESet _ xs ->
-        undefined
+        let inner = innerCol showExpr $ Set.toList xs
+         in "{" <> inner <> "}"
+    ESplat _ e -> '*' `Text.cons` showExpr e
+  where
+    innerCol f xs = Text.intercalate ", " $ f <$> xs
 
 data Statement a
     = SDefine a Identifier [Identifier] [Statement a]
