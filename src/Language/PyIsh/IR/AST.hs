@@ -80,7 +80,7 @@ showPrimBinOp = \case
     GreaterEq -> ">="
     And -> "and"
     Or -> "or"
-    Xor -> "xor"
+    Xor -> "^"
 
 data Expr a
     = EAtom a Atom
