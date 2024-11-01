@@ -32,7 +32,7 @@ showAtom :: Atom -> Text.Text
 showAtom = \case
     AInt i -> Text.pack $ show i
     AFloat f -> Text.pack $ show f
-    ABool b -> if b then "true" else "false"
+    ABool b -> Text.pack $ show b
     AString s -> s
     AIdent i -> i
 
