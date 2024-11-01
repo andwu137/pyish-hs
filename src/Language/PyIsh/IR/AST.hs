@@ -51,6 +51,7 @@ data PrimBinOp
     | Sub
     | Mul
     | Div
+    | Exp
     | -- bools - compares
       Eq
     | NotEq
@@ -70,6 +71,7 @@ showPrimBinOp = \case
     Sub -> "-"
     Mul -> "*"
     Div -> "/"
+    Exp -> "**"
     Eq -> "=="
     NotEq -> "!="
     Less -> "<"
