@@ -111,7 +111,7 @@ showExpr = \case
     EDict _ xs ->
         let into (k, v) = k <> ": " <> v
             inner = innerCol (into . both showExpr) $ Map.toList xs
-         in "(" <> inner <> ")"
+         in "{" <> inner <> "}"
     ESet _ xs ->
         let inner = innerCol showExpr $ Set.toList xs
          in "{" <> inner <> "}"
