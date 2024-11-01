@@ -89,6 +89,7 @@ data Expr a
     | EList a (Vector.Vector (Expr a))
     | EDict a (Map.Map (Expr a) (Expr a))
     | ESet a (Set.Set (Expr a))
+    | ESplat a (Expr a)
     deriving (Show, Read, Eq, Ord)
 
 showExpr :: Expr a -> Text.Text
@@ -122,6 +123,8 @@ data Statement a
     = SDefine a Identifier [Identifier] [Statement a]
     | SIf a (Expr a, [Statement a]) [(Expr a, [Statement a])] (Maybe [Statement a])
     | SAssign a Identifier (Expr a)
+    | SReturn a (Expr a)
+    | SYield a (Expr a)
     | SExpr a (Expr a)
     deriving (Show, Read, Eq, Ord)
 
@@ -149,6 +152,8 @@ showStatement' step =
                 else_ = maybe "" ((top "else" "" <>) . showBody) elseb
              in Text.intercalate (newline' (n - step)) [if_, elif_, else_]
         SAssign _ i e -> i <> " = " <> showExpr e
+        SReturn _ e -> "return " <> showExpr e
+        SYield _ e -> "yield " <> showExpr e
         SExpr _ e -> showExpr e
       where
         top :: Text.Text -> Text.Text -> Text.Text
